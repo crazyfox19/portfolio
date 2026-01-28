@@ -1,169 +1,297 @@
+// ========================================
+// Modern Portfolio - JavaScript
+// ========================================
+
 // Mobile Navigation Toggle
-const hamburger = document.querySelector('.hamburger')
-const navMenu = document.querySelector('.nav-menu')
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
-if (hamburger && navMenu) {
+if (hamburger && mobileMenu) {
   hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active')
-    navMenu.classList.toggle('active')
-  })
+    const isOpen = !mobileMenu.classList.contains('hidden');
 
-  // Close mobile menu when clicking on a link
-  document.querySelectorAll('.nav-link').forEach((n) =>
-    n.addEventListener('click', () => {
-      hamburger.classList.remove('active')
-      navMenu.classList.remove('active')
-    })
-  )
+    if (isOpen) {
+      // Close menu
+      mobileMenu.classList.add('hidden');
+      hamburger.querySelectorAll('.hamburger-line').forEach((line, index) => {
+        line.style.transform = '';
+        line.style.opacity = '';
+      });
+    } else {
+      // Open menu
+      mobileMenu.classList.remove('hidden');
+      const lines = hamburger.querySelectorAll('.hamburger-line');
+      lines[0].style.transform = 'translateY(6px) rotate(45deg)';
+      lines[1].style.opacity = '0';
+      lines[2].style.transform = 'translateY(-6px) rotate(-45deg)';
+    }
+  });
+
+  // Close mobile menu when clicking a link
+  mobileNavLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      hamburger.querySelectorAll('.hamburger-line').forEach(line => {
+        line.style.transform = '';
+        line.style.opacity = '';
+      });
+    });
+  });
 }
 
-// Active navigation link highlighting
-const sections = document.querySelectorAll('section')
-const navLinks = document.querySelectorAll('.nav-link')
+// Navbar style change on scroll
+const navbar = document.getElementById('navbar');
+const navLogo = document.querySelector('.nav-logo');
+const navLinksDesktop = document.querySelectorAll('.nav-link');
+const hamburgerLines = document.querySelectorAll('.hamburger-line');
 
-function highlightNavLink() {
-  let current = ''
-  const pageName = window.location.pathname.split('/').pop() || 'index.html'
+// Navbar hide on scroll down, show on scroll up
+let lastScrollY = window.scrollY;
+let ticking = false;
 
-  // If we're on a single page (index.html), use section-based highlighting
-  if (pageName === 'index.html' || pageName === '' || pageName === '/') {
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop
-      const sectionHeight = section.clientHeight
+function updateNavbarVisibility() {
+  const currentScrollY = window.scrollY;
 
-      if (window.pageYOffset >= sectionTop - 200) {
-        current = section.getAttribute('id')
-      }
-    })
-
-    navLinks.forEach((link) => {
-      link.classList.remove('active')
-      const href = link.getAttribute('href')
-      if (href === `#${current}`) {
-        link.classList.add('active')
-      }
-    })
+  if (currentScrollY > lastScrollY && currentScrollY > 80) {
+    // Scrolling down - hide navbar
+    navbar.style.transform = 'translateY(-100%)';
   } else {
-    // For multi-page navigation, highlight the current page
-    const currentPage = pageName.replace('.html', '')
-    navLinks.forEach((link) => {
-      link.classList.remove('active')
-      const href = link.getAttribute('href')
-      if (href.includes(currentPage)) {
-        link.classList.add('active')
-      }
-    })
+    // Scrolling up - show navbar
+    navbar.style.transform = 'translateY(0)';
+  }
+
+  lastScrollY = currentScrollY;
+  ticking = false;
+}
+
+function handleNavbarScroll() {
+  // Magazine Editorial - Navbar stays consistent cream/brown
+  // Just handle visibility on scroll
+  if (!ticking) {
+    window.requestAnimationFrame(updateNavbarVisibility);
+    ticking = true;
   }
 }
 
-window.addEventListener('scroll', highlightNavLink)
-window.addEventListener('load', highlightNavLink)
+window.addEventListener('scroll', handleNavbarScroll);
+handleNavbarScroll();
 
-// Animate skill bars when scrolled into view
-const skillBars = document.querySelectorAll('.skill-progress')
+// Active navigation link highlighting
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
 
-function animateSkillBars() {
-  skillBars.forEach((skillBar) => {
-    const level = skillBar.getAttribute('data-level')
-    const rect = skillBar.getBoundingClientRect()
+function highlightNavLink() {
+  // This function is simplified since navbar colors are now handled by handleNavbarScroll
+  const scrollPosition = window.scrollY + 150;
 
-    // Check if element is in viewport
-    if (rect.top < window.innerHeight && rect.bottom >= 0) {
-      skillBar.style.width = level + '%'
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.offsetHeight;
+    const sectionId = section.getAttribute('id');
+
+    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+      navLinks.forEach(link => {
+        if (link.getAttribute('href') === `#${sectionId}` && !link.classList.contains('rounded-full')) {
+          link.style.fontWeight = '600';
+        } else if (!link.classList.contains('rounded-full')) {
+          link.style.fontWeight = '500';
+        }
+      });
     }
-  })
+  });
 }
 
-// Initial check and on scroll
-window.addEventListener('scroll', animateSkillBars)
-window.addEventListener('load', animateSkillBars)
+window.addEventListener('scroll', highlightNavLink);
+window.addEventListener('load', highlightNavLink);
+
+// Scroll-triggered animations
+const animatedElements = document.querySelectorAll('.animate-on-scroll');
+
+function checkScroll() {
+  animatedElements.forEach(element => {
+    const elementTop = element.getBoundingClientRect().top;
+    const elementVisible = 100;
+
+    if (elementTop < window.innerHeight - elementVisible) {
+      element.classList.add('visible');
+    }
+  });
+}
+
+window.addEventListener('scroll', checkScroll);
+window.addEventListener('load', checkScroll);
+
+// Skill bar animation
+const skillBars = document.querySelectorAll('.skill-bar');
+
+function animateSkillBars() {
+  skillBars.forEach(bar => {
+    const rect = bar.getBoundingClientRect();
+    const width = bar.getAttribute('data-width');
+
+    if (rect.top < window.innerHeight && rect.bottom >= 0) {
+      bar.style.width = width + '%';
+      bar.style.transition = 'width 1.5s ease-out';
+    }
+  });
+}
+
+window.addEventListener('scroll', animateSkillBars);
+window.addEventListener('load', animateSkillBars);
+
+// Smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    const targetId = this.getAttribute('href');
+    if (targetId === '#') return;
+
+    const targetElement = document.querySelector(targetId);
+    if (targetElement) {
+      const navbarHeight = navbar ? navbar.offsetHeight : 0;
+      const targetPosition = targetElement.offsetTop - navbarHeight;
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+    }
+  });
+});
 
 // Form submission handling
-const contactForm = document.querySelector('.contact-form')
+const contactForm = document.getElementById('contactForm');
 
 if (contactForm) {
   contactForm.addEventListener('submit', (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     // Get form values
-    const name = document.getElementById('name').value
-    const email = document.getElementById('email').value
-    const subject = document.getElementById('subject').value
-    const message = document.getElementById('message').value
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const subject = document.getElementById('subject').value;
+    const message = document.getElementById('message').value;
 
-    // In a real application, you would send this data to a server
-    // For this demo, we'll just show an alert
-    alert(
-      `Thank you, ${name}! Your message has been sent. I'll get back to you soon at ${email}.`
-    )
+    // Create success message
+    const successMessage = document.createElement('div');
+    successMessage.className = 'fixed top-24 left-1/2 transform -translate-x-1/2 bg-emerald-500 text-white px-8 py-4 rounded-xl shadow-2xl z-50 animate-fade-in-up';
+    successMessage.innerHTML = `
+      <div class="flex items-center gap-3">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+        <span>Thank you, ${name}! Your message has been sent.</span>
+      </div>
+    `;
+
+    document.body.appendChild(successMessage);
+
+    // Remove message after 4 seconds
+    setTimeout(() => {
+      successMessage.style.opacity = '0';
+      successMessage.style.transform = 'translate(-50%, -20px)';
+      successMessage.style.transition = 'all 0.3s ease-out';
+      setTimeout(() => successMessage.remove(), 300);
+    }, 4000);
 
     // Reset form
-    contactForm.reset()
-  })
+    contactForm.reset();
+  });
 }
 
-// Smooth scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault()
-
-    const targetId = this.getAttribute('href')
-    if (targetId === '#') return
-
-    const targetElement = document.querySelector(targetId)
-    if (targetElement) {
-      window.scrollTo({
-        top: targetElement.offsetTop - 80,
-        behavior: 'smooth',
-      })
-    }
-  })
-})
-
-// Schedule Meeting functionality
-const scheduleMeeting = document.getElementById('scheduleMeeting')
-if (scheduleMeeting) {
-  scheduleMeeting.addEventListener('click', (e) => {
-    e.preventDefault()
-    alert(
-      'Meeting scheduling feature would be integrated here. For now, please email me to schedule a meeting.'
-    )
-  })
-}
-
-// Page load animations
-document.addEventListener('DOMContentLoaded', function () {
-  // Add fade-in animation to elements
-  const animatedElements = document.querySelectorAll(
-    '.hero-title, .hero-subtitle, .hero-description, .hero-buttons, .project-card, .story-card, .tool-item'
-  )
-
-  animatedElements.forEach((element, index) => {
-    element.style.opacity = '0'
-    element.style.transform = 'translateY(20px)'
-    element.style.transition = 'opacity 0.6s ease, transform 0.6s ease'
-
-    setTimeout(() => {
-      element.style.opacity = '1'
-      element.style.transform = 'translateY(0)'
-    }, index * 100)
-  })
-})
-
-// Image lazy loading
+// Intersection Observer for lazy loading and animations
 if ('IntersectionObserver' in window) {
+  // Lazy load images
   const imageObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
+    entries.forEach(entry => {
       if (entry.isIntersecting) {
-        const img = entry.target
-        img.src = img.dataset.src
-        img.classList.remove('lazy')
-        imageObserver.unobserve(img)
+        const img = entry.target;
+        if (img.dataset.src) {
+          img.src = img.dataset.src;
+          img.classList.remove('lazy');
+        }
+        imageObserver.unobserve(img);
       }
-    })
-  })
+    });
+  }, { threshold: 0.1 });
 
-  document.querySelectorAll('img[data-src]').forEach((img) => {
-    imageObserver.observe(img)
-  })
+  document.querySelectorAll('img[data-src]').forEach(img => {
+    imageObserver.observe(img);
+  });
+
+  // Animate elements on scroll
+  const elementObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  animatedElements.forEach(element => {
+    elementObserver.observe(element);
+  });
 }
+
+// Add hover effects to project cards
+const projectCards = document.querySelectorAll('.project-card');
+
+projectCards.forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    card.style.transform = 'translateY(-8px)';
+  });
+
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'translateY(0)';
+  });
+});
+
+// Typing effect for hero (optional enhancement)
+function typeWriter(element, text, speed = 50) {
+  let i = 0;
+  element.textContent = '';
+
+  function type() {
+    if (i < text.length) {
+      element.textContent += text.charAt(i);
+      i++;
+      setTimeout(type, speed);
+    }
+  }
+
+  type();
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+  // Trigger initial animations
+  setTimeout(() => {
+    checkScroll();
+    animateSkillBars();
+  }, 100);
+
+  // Add loaded class to body for CSS animations
+  document.body.classList.add('loaded');
+});
+
+// Handle window resize
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    // Close mobile menu on resize to desktop
+    if (window.innerWidth >= 768 && mobileMenu) {
+      mobileMenu.classList.add('hidden');
+      hamburger.querySelectorAll('.hamburger-line').forEach(line => {
+        line.style.transform = '';
+        line.style.opacity = '';
+      });
+    }
+  }, 250);
+});
+
+// Console welcome message
+console.log('%c Welcome to Asonye Mmaokike\'s Portfolio ',
+  'background: #2B2722; color: #E8E4DD; padding: 10px 20px; font-size: 14px; font-family: Georgia, serif;');

@@ -1,162 +1,521 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About Me - Asonye Mmaokike</title>
-    <link rel="stylesheet" href="/CSS/style.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              'playfair': ['Playfair Display', 'Georgia', 'serif'],
+              'ibm': ['IBM Plex Sans', 'system-ui', 'sans-serif'],
+            },
+            colors: {
+              cream: {
+                50: '#FDFCFB',
+                100: '#F5F3F0',
+                200: '#E8E4DD',
+                300: '#D4CFC5',
+                400: '#C0B9AD',
+                500: '#A9A295',
+              },
+              brown: {
+                50: '#F5F4F3',
+                100: '#E6E4E2',
+                200: '#CCC8C4',
+                300: '#9E9891',
+                400: '#6B655C',
+                500: '#4A453E',
+                600: '#3D3833',
+                700: '#2B2722',
+                800: '#1F1C18',
+                900: '#141210',
+              },
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      .pill-btn {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 28px;
+        border: 1px solid #2B2722;
+        border-radius: 50px;
+        background: transparent;
+        color: #2B2722;
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-weight: 500;
+        font-size: 0.9rem;
+        letter-spacing: 0.02em;
+        transition: all 0.3s ease;
+      }
+      .pill-btn::before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        background: #2B2722;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+      }
+      .pill-btn:hover {
+        background: #2B2722;
+        color: #E8E4DD;
+      }
+      .pill-btn:hover::before {
+        background: #E8E4DD;
+      }
+      .pill-btn-filled {
+        background: #2B2722;
+        color: #E8E4DD;
+      }
+      .pill-btn-filled::before {
+        background: #E8E4DD;
+      }
+      .pill-btn-filled:hover {
+        background: #4A453E;
+        border-color: #4A453E;
+      }
+      .editorial-card {
+        background: #FDFCFB;
+        border: 1px solid rgba(43, 39, 34, 0.1);
+        border-radius: 4px;
+        transition: all 0.3s ease;
+      }
+      .editorial-card:hover {
+        border-color: rgba(43, 39, 34, 0.25);
+      }
+      .section-divider {
+        width: 60px;
+        height: 1px;
+        background: #2B2722;
+        margin: 0 auto;
+      }
+      @keyframes textReveal {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+      .text-reveal {
+        animation: textReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        opacity: 0;
+      }
+      .delay-1 { animation-delay: 0.1s; }
+      .delay-2 { animation-delay: 0.2s; }
+      .delay-3 { animation-delay: 0.3s; }
+      .delay-4 { animation-delay: 0.4s; }
+      .delay-5 { animation-delay: 0.5s; }
+      .delay-6 { animation-delay: 0.6s; }
+      @keyframes scaleReveal {
+        0% { opacity: 0; transform: scale(0.95); }
+        100% { opacity: 1; transform: scale(1); }
+      }
+      .scale-reveal {
+        animation: scaleReveal 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        opacity: 0;
+      }
+      .card-lift {
+        transition: transform 0.35s ease, border-color 0.35s ease;
+      }
+      .card-lift:hover {
+        transform: translateY(-4px);
+      }
+
+      /* Floating Animations */
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
+      }
+      @keyframes floatSlow {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-10px) rotate(2deg); }
+      }
+      @keyframes floatReverse {
+        0%, 100% { transform: translateY(-10px); }
+        50% { transform: translateY(5px); }
+      }
+      @keyframes orbit {
+        0% { transform: rotate(0deg) translateX(20px) rotate(0deg); }
+        100% { transform: rotate(360deg) translateX(20px) rotate(-360deg); }
+      }
+      @keyframes pulse-soft {
+        0%, 100% { opacity: 0.3; transform: scale(1); }
+        50% { opacity: 0.6; transform: scale(1.1); }
+      }
+      @keyframes spin-slow {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      .float-animation { animation: float 6s ease-in-out infinite; }
+      .float-slow { animation: floatSlow 8s ease-in-out infinite; }
+      .float-reverse { animation: floatReverse 7s ease-in-out infinite; }
+      .orbit-animation { animation: orbit 20s linear infinite; }
+      .pulse-soft { animation: pulse-soft 4s ease-in-out infinite; }
+      .spin-slow { animation: spin-slow 30s linear infinite; }
+
+      /* Decorative shapes */
+      .deco-circle { position: absolute; border-radius: 50%; border: 1px solid rgba(43, 39, 34, 0.15); }
+      .deco-dot { position: absolute; width: 6px; height: 6px; background: rgba(43, 39, 34, 0.3); border-radius: 50%; }
+      .deco-ring { position: absolute; border-radius: 50%; border: 1px dashed rgba(43, 39, 34, 0.2); }
+      .deco-cross { position: absolute; width: 12px; height: 12px; }
+      .deco-cross::before, .deco-cross::after { content: ''; position: absolute; background: rgba(43, 39, 34, 0.2); }
+      .deco-cross::before { width: 12px; height: 1px; top: 50%; left: 0; transform: translateY(-50%); }
+      .deco-cross::after { width: 1px; height: 12px; left: 50%; top: 0; transform: translateX(-50%); }
+      /* Nav link with white background */
+      .nav-link-pill {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 8px 16px;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(43, 39, 34, 0.08);
+        transition: all 0.3s ease;
+        transform-style: preserve-3d;
+      }
+      .nav-link-pill:hover {
+        background: #FFFFFF;
+        box-shadow: 0 4px 15px rgba(43, 39, 34, 0.12);
+        transform: translateY(-2px) translateZ(5px);
+      }
+      /* Label badge with white background */
+      .label-badge {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 10px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(43, 39, 34, 0.08), 0 1px 3px rgba(43, 39, 34, 0.1);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transform-style: preserve-3d;
+        animation: labelFloat 4s ease-in-out infinite;
+      }
+      @keyframes labelFloat {
+        0%, 100% { transform: translateY(0) rotateX(0); }
+        50% { transform: translateY(-5px) rotateX(5deg); }
+      }
+      /* 3D Card effect */
+      .card-3d {
+        transform-style: preserve-3d;
+        transition: transform 0.5s ease, box-shadow 0.5s ease;
+      }
+      .card-3d:hover {
+        transform: rotateX(5deg) rotateY(-5deg) translateZ(10px);
+        box-shadow: 10px 10px 30px rgba(43, 39, 34, 0.15);
+      }
+      /* 3D Button */
+      .btn-3d {
+        transform-style: preserve-3d;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(43, 39, 34, 0.15);
+      }
+      .btn-3d:hover {
+        transform: translateY(-3px) translateZ(10px);
+        box-shadow: 0 8px 25px rgba(43, 39, 34, 0.2);
+      }
+      /* Section header 3D */
+      .section-header-3d { transform-style: preserve-3d; perspective: 1000px; }
+      .section-title-3d { transform-style: preserve-3d; transition: transform 0.5s ease; }
+      .section-title-3d:hover { transform: translateZ(20px) rotateX(-5deg); }
+    </style>
   </head>
-  <body>
+  <body class="font-ibm text-brown-700 bg-cream-200 antialiased">
     <!-- Navigation -->
-    <nav class="navbar">
-      <div class="container nav-container">
-        <a href="index.html" class="logo">🌟 Asonye Mmaokike</a>
-        <ul class="nav-menu">
-          <li><a href="index.html" class="nav-link">Home</a></li>
-          <li><a href="about.html" class="nav-link active">About</a></li>
-          <li><a href="skills.html" class="nav-link">Skills</a></li>
-          <li><a href="projects.html" class="nav-link">Projects</a></li>
-          <li><a href="stories.html" class="nav-link">Stories</a></li>
-          <li><a href="contact.html" class="nav-link">Contact</a></li>
-        </ul>
-        <div class="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
+    <nav class="fixed top-0 left-0 w-full bg-cream-200/95 backdrop-blur-sm z-50 border-b border-brown-700/10 transition-transform duration-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16 lg:h-20">
+          <a href="index.html" class="font-playfair text-xl lg:text-2xl font-semibold text-brown-700 hover:text-brown-500 transition-colors">
+            Asonye<span class="text-brown-400 font-normal">.dev</span>
+          </a>
+          <ul class="hidden md:flex items-center space-x-6">
+            <li><a href="index.html" class="nav-link-pill text-brown-600 hover:text-brown-700 font-medium text-sm tracking-wide">Home</a></li>
+            <li><a href="about.html" class="nav-link-pill text-brown-700 font-medium text-sm tracking-wide border-b border-brown-700">About</a></li>
+            <li><a href="skills.html" class="nav-link-pill text-brown-600 hover:text-brown-700 font-medium text-sm tracking-wide">Skills</a></li>
+            <li><a href="projects.html" class="nav-link-pill text-brown-600 hover:text-brown-700 font-medium text-sm tracking-wide">Projects</a></li>
+            <li><a href="stories.html" class="nav-link-pill text-brown-600 hover:text-brown-700 font-medium text-sm tracking-wide">Stories</a></li>
+            <li><a href="contact.html" class="ml-4 pill-btn pill-btn-filled text-sm btn-3d">Contact</a></li>
+          </ul>
+          <button id="hamburger" class="md:hidden flex flex-col justify-center items-center w-10 h-10">
+            <span class="w-5 h-0.5 bg-brown-700 rounded-full transition-all"></span>
+            <span class="w-5 h-0.5 bg-brown-700 rounded-full mt-1.5 transition-all"></span>
+            <span class="w-5 h-0.5 bg-brown-700 rounded-full mt-1.5 transition-all"></span>
+          </button>
+        </div>
+      </div>
+      <div id="mobile-menu" class="md:hidden hidden bg-cream-50 border-t border-brown-700/10">
+        <div class="px-4 py-3 space-y-1">
+          <a href="index.html" class="block py-3 px-4 text-brown-700 hover:bg-cream-200 font-medium">Home</a>
+          <a href="about.html" class="block py-3 px-4 text-brown-700 bg-cream-200 font-medium">About</a>
+          <a href="skills.html" class="block py-3 px-4 text-brown-700 hover:bg-cream-200 font-medium">Skills</a>
+          <a href="projects.html" class="block py-3 px-4 text-brown-700 hover:bg-cream-200 font-medium">Projects</a>
+          <a href="stories.html" class="block py-3 px-4 text-brown-700 hover:bg-cream-200 font-medium">Stories</a>
+          <a href="contact.html" class="block py-3 px-4 mt-2 bg-brown-700 text-cream-200 text-center font-medium">Contact</a>
         </div>
       </div>
     </nav>
 
-    <!-- Page Header -->
-    <section class="page-header">
-      <div class="container">
-        <h1>About Me</h1>
-        <p>Get to know the person behind the code and stories</p>
+    <!-- Hero Section - About -->
+    <section class="min-h-screen bg-cream-200 flex items-center pt-16 lg:pt-20 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 w-full">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+          <!-- Left Column - Circular Image with Floating Animation -->
+          <div class="order-2 lg:order-1 flex justify-center lg:justify-start">
+            <div class="scale-reveal delay-1">
+              <div class="relative">
+                <!-- Floating profile image -->
+                <div class="float-animation">
+                  <div class="w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border border-brown-700/20 relative z-10">
+                    <img src="./images/image 2.jpg" alt="Asonye Mmaokike" class="w-full h-full object-cover" />
+                  </div>
+                </div>
+
+                <!-- Animated decorative elements -->
+                <div class="absolute -inset-6 deco-ring spin-slow pointer-events-none"></div>
+                <div class="absolute -inset-3 border border-brown-700/10 rounded-full pointer-events-none float-reverse"></div>
+
+                <!-- Orbiting dots -->
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] orbit-animation pointer-events-none">
+                  <div class="deco-dot" style="top: 0; left: 50%;"></div>
+                </div>
+
+                <!-- Floating decorative shapes -->
+                <div class="deco-cross float-slow absolute -top-8 -right-4 pointer-events-none"></div>
+                <div class="deco-cross float-reverse absolute -bottom-6 -left-6 pointer-events-none"></div>
+                <div class="deco-circle w-3 h-3 pulse-soft absolute top-10 -right-8 pointer-events-none"></div>
+                <div class="deco-circle w-2 h-2 pulse-soft absolute bottom-16 -left-10 pointer-events-none" style="animation-delay: 1.5s;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column - Content -->
+          <div class="order-1 lg:order-2 text-center lg:text-left">
+            <div class="text-reveal delay-1 mb-4">
+              <span class="label-badge text-brown-500 text-xs font-medium tracking-widest uppercase">
+                <span class="w-2 h-2 bg-brown-500 rounded-full"></span>
+                About Me
+              </span>
+            </div>
+
+            <h1 class="text-reveal delay-2 mb-6">
+              <span class="block font-playfair text-4xl sm:text-5xl lg:text-6xl font-semibold text-brown-700 leading-tight">
+                I'm <span class="inline-block bg-white/80 px-3 py-1 rounded-lg shadow-sm">Asonye</span>,
+              </span>
+              <span class="block font-playfair text-4xl sm:text-5xl lg:text-6xl leading-tight mt-2">
+                <span class="italic text-brown-500">Creative</span>
+                <span class="text-brown-700 font-semibold inline-block bg-white/80 px-3 py-1 rounded-lg shadow-sm"> Developer</span>
+              </span>
+            </h1>
+
+            <p class="text-reveal delay-3 text-brown-500 text-base sm:text-lg max-w-lg mx-auto lg:mx-0 mb-6 leading-relaxed font-light">
+              I am a motivated professional with training in front-end development and creative storytelling tools. I combine technical knowledge with creativity to design user-friendly web interfaces and engaging digital experiences.
+            </p>
+
+            <p class="text-reveal delay-4 text-brown-400 text-base max-w-lg mx-auto lg:mx-0 mb-8 leading-relaxed font-light">
+              As a graduate of Economics and Statistics from the University of Benin, I bring analytical thinking to my creative work. Currently an intern at Acentruim AI Company.
+            </p>
+
+            <!-- Stats -->
+            <div class="text-reveal delay-5 grid grid-cols-3 gap-4 sm:gap-8 max-w-md mx-auto lg:mx-0 mb-8">
+              <div class="text-center lg:text-left">
+                <span class="block font-playfair text-3xl sm:text-4xl font-semibold text-brown-700">8+</span>
+                <span class="text-xs text-brown-400 tracking-wide uppercase">Projects</span>
+              </div>
+              <div class="text-center lg:text-left border-x border-brown-700/10 px-4">
+                <span class="block font-playfair text-3xl sm:text-4xl font-semibold text-brown-700">1+</span>
+                <span class="text-xs text-brown-400 tracking-wide uppercase">Year Exp.</span>
+              </div>
+              <div class="text-center lg:text-left">
+                <span class="block font-playfair text-3xl sm:text-4xl font-semibold text-brown-700">10+</span>
+                <span class="text-xs text-brown-400 tracking-wide uppercase">Stories</span>
+              </div>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="text-reveal delay-6 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <a href="skills.html" class="pill-btn pill-btn-filled btn-3d">View My Skills</a>
+              <a href="contact.html" class="pill-btn btn-3d">Get In Touch</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature Cards with Floating Animation -->
+        <div class="mt-16 lg:mt-24 grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
+          <div class="editorial-card p-5 card-lift card-3d">
+            <h4 class="text-brown-700 font-medium text-sm mb-1">Frontend Development</h4>
+            <p class="text-brown-400 text-xs font-light">HTML, CSS, JavaScript</p>
+          </div>
+          <div class="editorial-card p-5 card-lift card-3d">
+            <h4 class="text-brown-700 font-medium text-sm mb-1">Creative Storytelling</h4>
+            <p class="text-brown-400 text-xs font-light">Visual narratives &amp; flipbooks</p>
+          </div>
+          <div class="editorial-card p-5 card-lift card-3d">
+            <h4 class="text-brown-700 font-medium text-sm mb-1">AI Illustrations</h4>
+            <p class="text-brown-400 text-xs font-light">Leonardo.Ai, Ideogram</p>
+          </div>
+          <div class="editorial-card p-5 card-lift card-3d">
+            <h4 class="text-brown-700 font-medium text-sm mb-1">UI/UX Design</h4>
+            <p class="text-brown-400 text-xs font-light">User-centered approach</p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- About Content -->
-    <section class="about-content">
-      <div class="container">
-        <div class="about-grid">
-          <div class="about-image-section">
-            <img
-              src="./images/image 2.jpg"
-              alt="Asonye Mmaokike"
-              class="profile-image"
-            />
-            <div class="image-caption">
-              <h3>Asonye Mmaokike</h3>
-              <p>Front-End Developer & Creative Storyteller</p>
-              <p>Intern at Acentruim AI Company</p>
-              <p>B.Sc. Economics and Statistics Graduate</p>
+    <!-- My Journey Section -->
+    <section class="py-20 lg:py-28 bg-cream-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 lg:mb-16">
+          <span class="label-badge text-xs text-brown-400 tracking-widest uppercase mb-4 inline-flex">
+            <span class="w-2 h-2 bg-brown-400 rounded-full"></span>
+            Background
+          </span>
+          <h2 class="font-playfair text-3xl sm:text-4xl font-semibold text-brown-700 mb-4 section-title-3d">
+            <span class="inline-block bg-white/80 px-6 py-2 rounded-xl shadow-sm">My Journey</span>
+          </h2>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-12 items-start">
+          <!-- Education & Experience Timeline -->
+          <div>
+            <h3 class="font-playfair text-xl font-semibold text-brown-700 mb-6 flex items-center gap-3">
+              <span class="w-10 h-10 border border-brown-700/20 rounded-full flex items-center justify-center text-sm">01</span>
+              Education &amp; Experience
+            </h3>
+            <div class="relative pl-8 border-l border-brown-700/20 space-y-8">
+              <div class="relative">
+                <div class="absolute -left-[21px] w-2.5 h-2.5 bg-brown-700 rounded-full"></div>
+                <span class="text-xs text-brown-400 font-medium tracking-wide uppercase">2025 - Present</span>
+                <h4 class="font-playfair text-lg font-semibold text-brown-700 mt-1">Intern at Acentruim AI Company</h4>
+                <p class="text-brown-500 text-sm font-light">Front-end Development &amp; Creative Storytelling</p>
+                <p class="text-brown-400 mt-2 text-sm font-light">Working on AI-driven illustrations and web interface design.</p>
+              </div>
+              <div class="relative">
+                <div class="absolute -left-[21px] w-2.5 h-2.5 bg-brown-400 rounded-full"></div>
+                <span class="text-xs text-brown-400 font-medium tracking-wide uppercase">2019 - 2024</span>
+                <h4 class="font-playfair text-lg font-semibold text-brown-700 mt-1">University of Benin</h4>
+                <p class="text-brown-500 text-sm font-light">B.Sc. Economics and Statistics</p>
+                <p class="text-brown-400 mt-2 text-sm font-light">Graduated with analytical skills that enhance my creative work.</p>
+              </div>
+              <div class="relative">
+                <div class="absolute -left-[21px] w-2.5 h-2.5 bg-brown-700 rounded-full"></div>
+                <span class="text-xs text-brown-400 font-medium tracking-wide uppercase">2023</span>
+                <h4 class="font-playfair text-lg font-semibold text-brown-700 mt-1">Jobberman Soft Skills</h4>
+                <p class="text-brown-500 text-sm font-light">Professional Certificate</p>
+                <p class="text-brown-400 mt-2 text-sm font-light">Completed soft skills training program.</p>
+              </div>
             </div>
           </div>
-          <div class="about-text">
-            <h2>Creative Developer & Digital Storyteller</h2>
-            <p>
-              I am a motivated professional with training in front-end
-              development and creative storytelling tools. I combine technical
-              knowledge with creativity to design user-friendly web interfaces
-              and engaging digital experiences.
-            </p>
-            <p>
-              As a graduate of Economics and Statistics from the University of
-              Benin, I bring analytical thinking to my creative work. Skilled in
-              AI-driven illustrations, storytelling, and social media
-              management, with strong organizational abilities to thrive in
-              fast-paced environments.
-            </p>
 
-            <div class="about-stats">
-              <div class="stat">
-                <span class="stat-number">8+</span>
-                <span class="stat-label">Projects Completed</span>
+          <!-- What I Bring -->
+          <div>
+            <h3 class="font-playfair text-xl font-semibold text-brown-700 mb-6 flex items-center gap-3">
+              <span class="w-10 h-10 border border-brown-700/20 rounded-full flex items-center justify-center text-sm">02</span>
+              What I Bring
+            </h3>
+            <div class="space-y-4">
+              <div class="editorial-card p-6 card-lift">
+                <h4 class="font-medium text-brown-700 mb-2">Analytical Thinking</h4>
+                <p class="text-brown-400 text-sm font-light">My economics background helps me approach problems systematically and make data-driven design decisions.</p>
               </div>
-              <div class="stat">
-                <span class="stat-number">1+</span>
-                <span class="stat-label">Year Experience</span>
+              <div class="editorial-card p-6 card-lift">
+                <h4 class="font-medium text-brown-700 mb-2">Creative Vision</h4>
+                <p class="text-brown-400 text-sm font-light">I blend technical skills with artistic creativity to create visually stunning and functional designs.</p>
               </div>
-              <div class="stat">
-                <span class="stat-number">10+</span>
-                <span class="stat-label">Creative Stories</span>
+              <div class="editorial-card p-6 card-lift">
+                <h4 class="font-medium text-brown-700 mb-2">Continuous Learning</h4>
+                <p class="text-brown-400 text-sm font-light">Always exploring new technologies, tools, and techniques to stay ahead in the ever-evolving digital landscape.</p>
               </div>
-            </div>
-
-            <div class="about-buttons">
-              <a href="skills.html" class="btn btn-primary">View My Skills</a>
-              <a href="contact.html" class="btn btn-secondary">Get In Touch</a>
+              <div class="editorial-card p-6 card-lift">
+                <h4 class="font-medium text-brown-700 mb-2">Strong Communication</h4>
+                <p class="text-brown-400 text-sm font-light">Effective collaboration with teams and clear communication with clients to deliver exceptional results.</p>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-cream-200 border-y border-brown-700/10">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="font-playfair text-2xl sm:text-3xl font-semibold text-brown-700 mb-4">Ready to Work Together?</h2>
+        <p class="text-brown-500 mb-8 font-light">Let's create something amazing. I'm always open to discussing new projects and opportunities.</p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="contact.html" class="pill-btn pill-btn-filled">Start a Project</a>
+          <a href="projects.html" class="pill-btn">View My Work</a>
         </div>
       </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-content">
-          <div class="footer-main">
-            <div class="footer-info">
-              <h3>Asonye Mmaokike</h3>
-              <p>Front-End Developer & Creative Storyteller</p>
-              <p>B.Sc. Economics and Statistics Graduate</p>
-            </div>
-            <div class="footer-links">
-              <div class="footer-column">
-                <h4>Navigation</h4>
-                <ul>
-                  <li><a href="index.html">Home</a></li>
-                  <li><a href="about.html">About</a></li>
-                  <li><a href="skills.html">Skills</a></li>
-                  <li><a href="projects.html">Projects</a></li>
-                  <li><a href="stories.html">Stories</a></li>
-                  <li><a href="contact.html">Contact</a></li>
-                </ul>
-              </div>
-              <div class="footer-column">
-                <h4>Connect</h4>
-                <ul>
-                  <li><a href="mailto:mmasonye2001@gmail.com">Email</a></li>
-                  <li><a href="tel:+2347040808085">Phone</a></li>
-                  <li>
-                    <a
-                      href="https://linkedin.com/in/asonye-mmaokike"
-                      target="_blank"
-                      >LinkedIn</a
-                    >
-                  </li>
-                  <li>
-                    <a href="https://github.com/asonye" target="_blank"
-                      >GitHub</a
-                    >
-                  </li>
-                </ul>
-              </div>
-              <div class="footer-column">
-                <h4>Services</h4>
-                <ul>
-                  <li>Frontend Development</li>
-                  <li>Web Design</li>
-                  <li>Creative Storytelling</li>
-                  <li>UI/UX Design</li>
-                </ul>
-              </div>
-            </div>
+    <footer class="bg-brown-700 text-cream-200 pt-16 pb-10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
+          <div class="lg:col-span-2">
+            <a href="index.html" class="font-playfair text-2xl font-semibold text-cream-200 hover:text-cream-100 transition-colors mb-4 inline-block">
+              Asonye<span class="text-cream-400 font-normal">.dev</span>
+            </a>
+            <p class="text-cream-300 mb-2 font-light">Front-End Developer &amp; Creative Storyteller</p>
+            <p class="text-cream-400 text-sm font-light">B.Sc. Economics and Statistics Graduate</p>
           </div>
-          <div class="footer-bottom">
-            <p>&copy; 2025 Asonye Mmaokike. All rights reserved.</p>
-            <p>Designed and developed with ❤️ by Asonye Mmaokike</p>
+          <div>
+            <h4 class="text-sm font-medium mb-4 text-cream-200 tracking-wide uppercase">Navigation</h4>
+            <ul class="space-y-3">
+              <li><a href="index.html" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">Home</a></li>
+              <li><a href="about.html" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">About</a></li>
+              <li><a href="skills.html" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">Skills</a></li>
+              <li><a href="projects.html" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">Projects</a></li>
+              <li><a href="stories.html" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">Stories</a></li>
+              <li><a href="contact.html" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">Contact</a></li>
+            </ul>
           </div>
+          <div>
+            <h4 class="text-sm font-medium mb-4 text-cream-200 tracking-wide uppercase">Connect</h4>
+            <ul class="space-y-3">
+              <li><a href="mailto:mmasonye2001@gmail.com" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">Email</a></li>
+              <li><a href="tel:+2347040808085" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">Phone</a></li>
+              <li><a href="https://linkedin.com/in/asonye-mmaokike" target="_blank" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">LinkedIn</a></li>
+              <li><a href="https://github.com/asonye" target="_blank" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">GitHub</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-brown-600 mt-12 pt-8 text-center">
+          <p class="text-cream-500 text-xs font-light tracking-wide">&copy; 2025 Asonye Mmaokike. All rights reserved.</p>
         </div>
       </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script>
+      const hamburger = document.getElementById('hamburger');
+      const mobileMenu = document.getElementById('mobile-menu');
+      hamburger.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+      const navbar = document.querySelector('nav');
+      let lastScrollY = window.scrollY;
+      let ticking = false;
+
+      function updateNavbar() {
+        const currentScrollY = window.scrollY;
+        if (currentScrollY > lastScrollY && currentScrollY > 80) {
+          navbar.style.transform = 'translateY(-100%)';
+        } else {
+          navbar.style.transform = 'translateY(0)';
+        }
+        lastScrollY = currentScrollY;
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateNavbar);
+          ticking = true;
+        }
+      });
+    </script>
   </body>
 </html>

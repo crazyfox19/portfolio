@@ -242,7 +242,7 @@ img {
 }
 
 .hero-title {
-  font-size: 4rem;
+  font-size: 3rem;
   margin-bottom: 1rem;
   animation: fadeInUp 1s ease;
 }
@@ -974,10 +974,10 @@ img {
     top: 70px;
     left: -100%;
     width: 100%;
-    background: white;
+    background: rgba(0, 0, 0, 0.1);
     flex-direction: column;
     text-align: center;
-    padding: 20px 0;
+    padding: 15px 0;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     transition: var(--transition);
   }

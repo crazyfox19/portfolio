@@ -1,338 +1,579 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact - Asonye Mmaokike</title>
-    <link rel="stylesheet" href="/CSS/style.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              'playfair': ['Playfair Display', 'Georgia', 'serif'],
+              'ibm': ['IBM Plex Sans', 'system-ui', 'sans-serif'],
+            },
+            colors: {
+              cream: {
+                50: '#FDFCFB',
+                100: '#F5F3F0',
+                200: '#E8E4DD',
+                300: '#D4CFC5',
+                400: '#C0B9AD',
+                500: '#A9A295',
+              },
+              brown: {
+                50: '#F5F4F3',
+                100: '#E6E4E2',
+                200: '#CCC8C4',
+                300: '#9E9891',
+                400: '#6B655C',
+                500: '#4A453E',
+                600: '#3D3833',
+                700: '#2B2722',
+                800: '#1F1C18',
+                900: '#141210',
+              },
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      .pill-btn {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 28px;
+        border: 1px solid #2B2722;
+        border-radius: 50px;
+        background: transparent;
+        color: #2B2722;
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-weight: 500;
+        font-size: 0.9rem;
+        letter-spacing: 0.02em;
+        transition: all 0.3s ease;
+      }
+      .pill-btn::before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        background: #2B2722;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+      }
+      .pill-btn:hover {
+        background: #2B2722;
+        color: #E8E4DD;
+      }
+      .pill-btn:hover::before {
+        background: #E8E4DD;
+      }
+      .pill-btn-filled {
+        background: #2B2722;
+        color: #E8E4DD;
+      }
+      .pill-btn-filled::before {
+        background: #E8E4DD;
+      }
+      .pill-btn-filled:hover {
+        background: #4A453E;
+        border-color: #4A453E;
+      }
+      .editorial-card {
+        background: #FDFCFB;
+        border: 1px solid rgba(43, 39, 34, 0.1);
+        border-radius: 4px;
+        transition: all 0.3s ease;
+      }
+      .editorial-card:hover {
+        border-color: rgba(43, 39, 34, 0.25);
+      }
+      .section-divider {
+        width: 60px;
+        height: 1px;
+        background: #2B2722;
+        margin: 0 auto;
+      }
+      @keyframes textReveal {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+      .text-reveal {
+        animation: textReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        opacity: 0;
+      }
+      .delay-1 { animation-delay: 0.1s; }
+      .delay-2 { animation-delay: 0.2s; }
+      .delay-3 { animation-delay: 0.3s; }
+      .delay-4 { animation-delay: 0.4s; }
+      .delay-5 { animation-delay: 0.5s; }
+      .delay-6 { animation-delay: 0.6s; }
+      .card-lift {
+        transition: transform 0.35s ease, border-color 0.35s ease;
+      }
+      .card-lift:hover {
+        transform: translateY(-4px);
+      }
+      /* Floating Animations */
+      @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
+      @keyframes floatSlow { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-10px) rotate(2deg); } }
+      @keyframes floatReverse { 0%, 100% { transform: translateY(-10px); } 50% { transform: translateY(5px); } }
+      @keyframes pulse-soft { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.1); } }
+      @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+      .float-animation { animation: float 6s ease-in-out infinite; }
+      .float-slow { animation: floatSlow 8s ease-in-out infinite; }
+      .float-reverse { animation: floatReverse 7s ease-in-out infinite; }
+      .pulse-soft { animation: pulse-soft 4s ease-in-out infinite; }
+      .spin-slow { animation: spin-slow 30s linear infinite; }
+      .deco-circle { position: absolute; border-radius: 50%; border: 1px solid rgba(43, 39, 34, 0.15); }
+      .deco-dot { position: absolute; width: 6px; height: 6px; background: rgba(43, 39, 34, 0.3); border-radius: 50%; }
+      .deco-ring { position: absolute; border-radius: 50%; border: 1px dashed rgba(43, 39, 34, 0.2); }
+      .deco-cross { position: absolute; width: 12px; height: 12px; }
+      .deco-cross::before, .deco-cross::after { content: ''; position: absolute; background: rgba(43, 39, 34, 0.2); }
+      .deco-cross::before { width: 12px; height: 1px; top: 50%; left: 0; transform: translateY(-50%); }
+      .deco-cross::after { width: 1px; height: 12px; left: 50%; top: 0; transform: translateX(-50%); }
+      /* Nav link with white background */
+      .nav-link-pill {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 8px 16px;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(43, 39, 34, 0.08);
+        transition: all 0.3s ease;
+        transform-style: preserve-3d;
+      }
+      .nav-link-pill:hover {
+        background: #FFFFFF;
+        box-shadow: 0 4px 15px rgba(43, 39, 34, 0.12);
+        transform: translateY(-2px) translateZ(5px);
+      }
+      /* Label badge with white background */
+      .label-badge {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 10px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(43, 39, 34, 0.08), 0 1px 3px rgba(43, 39, 34, 0.1);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      /* 3D Card effect */
+      .card-3d {
+        transform-style: preserve-3d;
+        transition: transform 0.5s ease, box-shadow 0.5s ease;
+      }
+      .card-3d:hover {
+        transform: rotateX(5deg) rotateY(-5deg) translateZ(10px);
+        box-shadow: 10px 10px 30px rgba(43, 39, 34, 0.15);
+      }
+      .btn-3d {
+        transform-style: preserve-3d;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(43, 39, 34, 0.15);
+      }
+      .btn-3d:hover {
+        transform: translateY(-3px) translateZ(10px);
+        box-shadow: 0 8px 25px rgba(43, 39, 34, 0.2);
+      }
+      .section-title-3d {
+        transform-style: preserve-3d;
+        transition: transform 0.5s ease;
+      }
+      .section-title-3d:hover {
+        transform: translateZ(20px) rotateX(-5deg);
+      }
+    </style>
   </head>
-  <body>
+  <body class="font-ibm text-brown-700 bg-cream-200 antialiased">
     <!-- Navigation -->
-    <nav class="navbar">
-      <div class="container nav-container">
-        <a href="index.html" class="logo">🌟 Asonye Mmaokike</a>
-        <ul class="nav-menu">
-          <li><a href="index.html" class="nav-link">Home</a></li>
-          <li><a href="about.html" class="nav-link">About</a></li>
-          <li><a href="skills.html" class="nav-link">Skills</a></li>
-          <li><a href="projects.html" class="nav-link">Projects</a></li>
-          <li><a href="stories.html" class="nav-link">Stories</a></li>
-          <li><a href="contact.html" class="nav-link active">Contact</a></li>
-        </ul>
-        <div class="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
+    <nav class="fixed top-0 left-0 w-full bg-cream-200/95 backdrop-blur-sm z-50 border-b border-brown-700/10 transition-transform duration-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16 lg:h-20">
+          <a href="index.html" class="font-playfair text-xl lg:text-2xl font-semibold text-brown-700 hover:text-brown-500 transition-colors">
+            Asonye<span class="text-brown-400 font-normal">.dev</span>
+          </a>
+          <ul class="hidden md:flex items-center space-x-6">
+            <li><a href="index.html" class="nav-link-pill text-brown-600 hover:text-brown-700 font-medium text-sm tracking-wide transition-all">Home</a></li>
+            <li><a href="about.html" class="nav-link-pill text-brown-600 hover:text-brown-700 font-medium text-sm tracking-wide transition-all">About</a></li>
+            <li><a href="skills.html" class="nav-link-pill text-brown-600 hover:text-brown-700 font-medium text-sm tracking-wide transition-all">Skills</a></li>
+            <li><a href="projects.html" class="nav-link-pill text-brown-600 hover:text-brown-700 font-medium text-sm tracking-wide transition-all">Projects</a></li>
+            <li><a href="stories.html" class="nav-link-pill text-brown-600 hover:text-brown-700 font-medium text-sm tracking-wide transition-all">Stories</a></li>
+            <li><a href="contact.html" class="ml-4 pill-btn pill-btn-filled btn-3d text-sm">Contact</a></li>
+          </ul>
+          <button id="hamburger" class="md:hidden flex flex-col justify-center items-center w-10 h-10">
+            <span class="w-5 h-0.5 bg-brown-700 rounded-full transition-all"></span>
+            <span class="w-5 h-0.5 bg-brown-700 rounded-full mt-1.5 transition-all"></span>
+            <span class="w-5 h-0.5 bg-brown-700 rounded-full mt-1.5 transition-all"></span>
+          </button>
+        </div>
+      </div>
+      <div id="mobile-menu" class="md:hidden hidden bg-cream-50 border-t border-brown-700/10">
+        <div class="px-4 py-3 space-y-1">
+          <a href="index.html" class="block py-3 px-4 text-brown-700 hover:bg-cream-200 font-medium">Home</a>
+          <a href="about.html" class="block py-3 px-4 text-brown-700 hover:bg-cream-200 font-medium">About</a>
+          <a href="skills.html" class="block py-3 px-4 text-brown-700 hover:bg-cream-200 font-medium">Skills</a>
+          <a href="projects.html" class="block py-3 px-4 text-brown-700 hover:bg-cream-200 font-medium">Projects</a>
+          <a href="stories.html" class="block py-3 px-4 text-brown-700 hover:bg-cream-200 font-medium">Stories</a>
+          <a href="contact.html" class="block py-3 px-4 mt-2 bg-brown-700 text-cream-200 text-center font-medium">Contact</a>
         </div>
       </div>
     </nav>
 
-    <!-- Page Header -->
-    <section class="page-header">
-      <div class="container">
-        <h1>Get In Touch</h1>
-        <p>Let's discuss your next project or collaboration opportunity</p>
+    <!-- Hero Section - Contact -->
+    <section class="min-h-[60vh] bg-cream-200 flex items-center pt-16 lg:pt-20 relative overflow-hidden">
+      <!-- Decorative Elements -->
+      <div class="deco-circle w-32 h-32 float-animation" style="top: 15%; left: 5%;"></div>
+      <div class="deco-circle w-20 h-20 float-reverse" style="top: 25%; right: 8%;"></div>
+      <div class="deco-dot float-slow" style="top: 35%; left: 12%;"></div>
+      <div class="deco-dot pulse-soft" style="top: 20%; right: 15%;"></div>
+      <div class="deco-ring w-48 h-48 spin-slow" style="bottom: 10%; left: -5%;"></div>
+      <div class="deco-cross float-animation" style="top: 40%; right: 5%;"></div>
+      <div class="deco-dot float-reverse" style="bottom: 25%; right: 10%;"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 w-full">
+        <div class="text-center max-w-3xl mx-auto">
+          <div class="text-reveal delay-1 mb-4">
+            <span class="label-badge text-brown-500 text-xs font-medium tracking-widest uppercase">
+              <span class="w-2 h-2 bg-brown-500 rounded-full"></span>
+              Get In Touch
+            </span>
+          </div>
+
+          <h1 class="text-reveal delay-2 mb-6 section-title-3d">
+            <span class="block font-playfair text-4xl sm:text-5xl lg:text-6xl font-semibold text-brown-700 leading-tight">
+              Let's Start a
+            </span>
+            <span class="block font-playfair text-4xl sm:text-5xl lg:text-6xl leading-tight mt-2">
+              <span class="italic text-brown-500 inline-block bg-white/80 px-4 py-2 rounded-xl shadow-sm">Conversation</span>
+            </span>
+          </h1>
+
+          <p class="text-reveal delay-3 text-brown-500 text-base sm:text-lg max-w-xl mx-auto mb-8 leading-relaxed font-light">
+            I'm always open to discussing new projects, creative ideas, or opportunities to collaborate on something meaningful.
+          </p>
+
+          <div class="section-divider text-reveal delay-4"></div>
+        </div>
       </div>
     </section>
 
-    <!-- Contact Content -->
-    <section class="contact">
-      <div class="container">
-        <div class="contact-grid">
-          <div class="contact-info">
-            <div class="contact-item">
-              <div class="contact-icon">📧</div>
-              <div class="contact-details">
-                <h3>Email Address</h3>
-                <a href="mailto:mmasonye2001@gmail.com" class="contact-link"
-                  >mmasonye2001@gmail.com</a
-                >
-                <p class="contact-description">
-                  Primary contact for professional inquiries
-                </p>
-              </div>
-            </div>
+    <!-- Contact Content Section -->
+    <section class="py-16 lg:py-24 bg-cream-50 relative overflow-hidden">
+      <!-- Decorative Elements -->
+      <div class="deco-circle w-24 h-24 float-slow" style="top: 10%; right: 3%;"></div>
+      <div class="deco-dot pulse-soft" style="top: 5%; left: 8%;"></div>
+      <div class="deco-ring w-36 h-36 spin-slow" style="bottom: 15%; right: -3%;"></div>
+      <div class="deco-cross float-reverse" style="bottom: 20%; left: 5%;"></div>
+      <div class="deco-dot float-animation" style="top: 50%; left: 2%;"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16">
+          <!-- Contact Information -->
+          <div>
+            <h2 class="font-playfair text-2xl sm:text-3xl font-semibold text-brown-700 mb-8 flex items-center gap-3">
+              <span class="w-10 h-10 border border-brown-700/20 rounded-full flex items-center justify-center text-sm">01</span>
+              Contact Information
+            </h2>
 
-            <div class="contact-item">
-              <div class="contact-icon">📱</div>
-              <div class="contact-details">
-                <h3>Phone Number</h3>
-                <a href="tel:+2347040808085" class="contact-link"
-                  >+234 704 080 8085</a
-                >
-                <p class="contact-description">
-                  Available for calls and WhatsApp messages
-                </p>
+            <div class="space-y-4">
+              <!-- Email Card -->
+              <div class="editorial-card card-3d p-6 card-lift">
+                <div class="flex items-start gap-4">
+                  <div class="w-12 h-12 border border-brown-700/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg class="w-5 h-5 text-brown-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="font-medium text-brown-700 mb-1">Email Address</h3>
+                    <a href="mailto:mmasonye2001@gmail.com" class="text-brown-500 hover:text-brown-700 transition-colors font-light">mmasonye2001@gmail.com</a>
+                    <p class="text-brown-400 text-sm mt-1 font-light">Primary contact for professional inquiries</p>
+                  </div>
+                </div>
               </div>
-            </div>
 
-            <div class="contact-item">
-              <div class="contact-icon">💼</div>
-              <div class="contact-details">
-                <h3>LinkedIn Profile</h3>
-                <a
-                  href="https://linkedin.com/in/asonye-mmaokike"
-                  target="_blank"
-                  class="contact-link"
-                  >linkedin.com/in/asonye-mmaokike</a
-                >
-                <p class="contact-description">
-                  Connect professionally and view my experience
-                </p>
+              <!-- Phone Card -->
+              <div class="editorial-card card-3d p-6 card-lift">
+                <div class="flex items-start gap-4">
+                  <div class="w-12 h-12 border border-brown-700/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg class="w-5 h-5 text-brown-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="font-medium text-brown-700 mb-1">Phone Number</h3>
+                    <a href="tel:+2347040808085" class="text-brown-500 hover:text-brown-700 transition-colors font-light">+234 704 080 8085</a>
+                    <p class="text-brown-400 text-sm mt-1 font-light">Available for calls and WhatsApp messages</p>
+                  </div>
+                </div>
               </div>
-            </div>
 
-            <div class="contact-item">
-              <div class="contact-icon">🏢</div>
-              <div class="contact-details">
-                <h3>Current Position</h3>
-                <p class="contact-text">Intern at Acentruim AI Company</p>
-                <p class="contact-description">
-                  Frontend Development & Creative Storytelling
-                </p>
+              <!-- LinkedIn Card -->
+              <div class="editorial-card card-3d p-6 card-lift">
+                <div class="flex items-start gap-4">
+                  <div class="w-12 h-12 border border-brown-700/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg class="w-5 h-5 text-brown-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="font-medium text-brown-700 mb-1">LinkedIn Profile</h3>
+                    <a href="https://linkedin.com/in/asonye-mmaokike" target="_blank" class="text-brown-500 hover:text-brown-700 transition-colors font-light">linkedin.com/in/asonye-mmaokike</a>
+                    <p class="text-brown-400 text-sm mt-1 font-light">Connect professionally and view my experience</p>
+                  </div>
+                </div>
               </div>
-            </div>
 
-            <div class="contact-item">
-              <div class="contact-icon">📍</div>
-              <div class="contact-details">
-                <h3>Location</h3>
-                <p class="contact-text">Nigeria</p>
-                <p class="contact-description">
-                  Available for remote work worldwide
-                </p>
+              <!-- GitHub Card -->
+              <div class="editorial-card card-3d p-6 card-lift">
+                <div class="flex items-start gap-4">
+                  <div class="w-12 h-12 border border-brown-700/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg class="w-5 h-5 text-brown-700" fill="currentColor" viewBox="0 0 24 24">
+                      <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="font-medium text-brown-700 mb-1">GitHub</h3>
+                    <a href="https://github.com/asonye" target="_blank" class="text-brown-500 hover:text-brown-700 transition-colors font-light">github.com/asonye</a>
+                    <p class="text-brown-400 text-sm mt-1 font-light">View my code repositories and projects</p>
+                  </div>
+                </div>
               </div>
-            </div>
 
-            <div class="contact-item">
-              <div class="contact-icon">⏰</div>
-              <div class="contact-details">
-                <h3>Response Time</h3>
-                <p class="contact-text">Within 24 hours</p>
-                <p class="contact-description">
-                  I typically respond to all inquiries quickly
-                </p>
+              <!-- Location Card -->
+              <div class="editorial-card card-3d p-6 card-lift">
+                <div class="flex items-start gap-4">
+                  <div class="w-12 h-12 border border-brown-700/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg class="w-5 h-5 text-brown-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="font-medium text-brown-700 mb-1">Location</h3>
+                    <p class="text-brown-500 font-light">Nigeria</p>
+                    <p class="text-brown-400 text-sm mt-1 font-light">Available for remote work worldwide</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          <div class="contact-form-container">
-            <h3 class="form-title">Send Me a Message</h3>
-            <p class="form-subtitle">
-              Fill out the form below and I'll get back to you as soon as
-              possible.
-            </p>
+          <!-- Contact Form -->
+          <div>
+            <h2 class="font-playfair text-2xl sm:text-3xl font-semibold text-brown-700 mb-8 flex items-center gap-3">
+              <span class="w-10 h-10 border border-brown-700/20 rounded-full flex items-center justify-center text-sm">02</span>
+              Send a Message
+            </h2>
 
-            <form class="contact-form" id="contactForm">
-              <div class="form-group">
-                <label for="name" class="form-label">Full Name *</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  class="form-input"
-                  required
-                  placeholder="Enter your full name"
-                />
-              </div>
+            <div class="editorial-card p-8">
+              <p class="text-brown-500 mb-8 font-light">Fill out the form below and I'll get back to you as soon as possible.</p>
 
-              <div class="form-group">
-                <label for="email" class="form-label">Email Address *</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  class="form-input"
-                  required
-                  placeholder="Enter your email address"
-                />
-              </div>
+              <form class="space-y-6" id="contactForm">
+                <div>
+                  <label for="name" class="block text-sm font-medium text-brown-700 mb-2">Full Name *</label>
+                  <input type="text" id="name" name="name" required placeholder="Enter your full name"
+                    class="w-full px-4 py-3 bg-cream-50 border border-brown-700/20 text-brown-700 placeholder-brown-400 focus:outline-none focus:border-brown-700/40 transition-all font-light" />
+                </div>
 
-              <div class="form-group">
-                <label for="subject" class="form-label">Subject *</label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  class="form-input"
-                  required
-                  placeholder="Enter message subject"
-                />
-              </div>
+                <div>
+                  <label for="email" class="block text-sm font-medium text-brown-700 mb-2">Email Address *</label>
+                  <input type="email" id="email" name="email" required placeholder="Enter your email address"
+                    class="w-full px-4 py-3 bg-cream-50 border border-brown-700/20 text-brown-700 placeholder-brown-400 focus:outline-none focus:border-brown-700/40 transition-all font-light" />
+                </div>
 
-              <div class="form-group">
-                <label for="message" class="form-label">Your Message *</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  class="form-textarea"
-                  required
-                  placeholder="Please describe your project, question, or collaboration idea..."
-                  rows="6"
-                ></textarea>
-              </div>
+                <div>
+                  <label for="subject" class="block text-sm font-medium text-brown-700 mb-2">Subject *</label>
+                  <input type="text" id="subject" name="subject" required placeholder="Enter message subject"
+                    class="w-full px-4 py-3 bg-cream-50 border border-brown-700/20 text-brown-700 placeholder-brown-400 focus:outline-none focus:border-brown-700/40 transition-all font-light" />
+                </div>
 
-              <div class="form-group">
-                <label for="budget" class="form-label"
-                  >Project Budget (Optional)</label
-                >
-                <select id="budget" name="budget" class="form-input">
-                  <option value="">Select budget range</option>
-                  <option value="under-500">Under $500</option>
-                  <option value="500-1000">$500 - $1,000</option>
-                  <option value="1000-5000">$1,000 - $5,000</option>
-                  <option value="5000-plus">$5,000+</option>
-                  <option value="discuss">Let's discuss</option>
-                </select>
-              </div>
+                <div>
+                  <label for="message" class="block text-sm font-medium text-brown-700 mb-2">Your Message *</label>
+                  <textarea id="message" name="message" required rows="5" placeholder="Please describe your project, question, or collaboration idea..."
+                    class="w-full px-4 py-3 bg-cream-50 border border-brown-700/20 text-brown-700 placeholder-brown-400 focus:outline-none focus:border-brown-700/40 transition-all resize-none font-light"></textarea>
+                </div>
 
-              <div class="form-group">
-                <label for="timeline" class="form-label"
-                  >Project Timeline (Optional)</label
-                >
-                <select id="timeline" name="timeline" class="form-input">
-                  <option value="">Select timeline</option>
-                  <option value="urgent">Urgent (1-2 weeks)</option>
-                  <option value="short-term">Short-term (2-4 weeks)</option>
-                  <option value="medium-term">Medium-term (1-3 months)</option>
-                  <option value="long-term">Long-term (3+ months)</option>
-                  <option value="flexible">Flexible</option>
-                </select>
-              </div>
+                <div>
+                  <label for="budget" class="block text-sm font-medium text-brown-700 mb-2">Project Budget (Optional)</label>
+                  <select id="budget" name="budget"
+                    class="w-full px-4 py-3 bg-cream-50 border border-brown-700/20 text-brown-700 focus:outline-none focus:border-brown-700/40 transition-all font-light">
+                    <option value="">Select budget range</option>
+                    <option value="under-500">Under $500</option>
+                    <option value="500-1000">$500 - $1,000</option>
+                    <option value="1000-5000">$1,000 - $5,000</option>
+                    <option value="5000-plus">$5,000+</option>
+                    <option value="discuss">Let's discuss</option>
+                  </select>
+                </div>
 
-              <div class="form-actions">
-                <button type="submit" class="btn btn-primary">
-                  Send Message
-                </button>
-                <button type="reset" class="btn btn-secondary">
-                  Clear Form
-                </button>
-              </div>
+                <div>
+                  <label for="timeline" class="block text-sm font-medium text-brown-700 mb-2">Project Timeline (Optional)</label>
+                  <select id="timeline" name="timeline"
+                    class="w-full px-4 py-3 bg-cream-50 border border-brown-700/20 text-brown-700 focus:outline-none focus:border-brown-700/40 transition-all font-light">
+                    <option value="">Select timeline</option>
+                    <option value="urgent">Urgent (1-2 weeks)</option>
+                    <option value="short-term">Short-term (2-4 weeks)</option>
+                    <option value="medium-term">Medium-term (1-3 months)</option>
+                    <option value="long-term">Long-term (3+ months)</option>
+                    <option value="flexible">Flexible</option>
+                  </select>
+                </div>
 
-              <div class="form-footer">
-                <p class="form-note">
-                  * Required fields. Your information is secure and will never
-                  be shared with third parties.
+                <div class="flex flex-wrap gap-4 pt-4">
+                  <button type="submit" class="flex-1 pill-btn pill-btn-filled btn-3d justify-center">
+                    Send Message
+                  </button>
+                  <button type="reset" class="pill-btn btn-3d justify-center">
+                    Clear Form
+                  </button>
+                </div>
+
+                <p class="text-brown-400 text-sm text-center font-light">
+                  * Required fields. Your information is secure and will never be shared.
                 </p>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <!-- Additional Contact Methods -->
-        <div class="contact-methods">
-          <div class="methods-grid">
-            <div class="method-card">
-              <div class="method-icon">💬</div>
-              <h4>Quick Chat</h4>
-              <p>
-                Prefer a quick conversation? Let's schedule a call to discuss
-                your project requirements.
-              </p>
-              <a
-                href="https://wa.me/2347040808085"
-                target="_blank"
-                class="btn btn-secondary btn-small"
-                >WhatsApp Chat</a
-              >
-            </div>
-
-            <div class="method-card">
-              <div class="method-icon">📅</div>
-              <h4>Schedule Meeting</h4>
-              <p>
-                Book a meeting directly on my calendar for a detailed discussion
-                about your project.
-              </p>
-              <a
-                href="#"
-                class="btn btn-secondary btn-small"
-                id="scheduleMeeting"
-                >Schedule Call</a
-              >
-            </div>
-
-            <div class="method-card">
-              <div class="method-icon">⚡</div>
-              <h4>Quick Response</h4>
-              <p>
-                Need an immediate response? Use the quick contact form for
-                priority handling.
-              </p>
-              <a href="#contactForm" class="btn btn-primary btn-small"
-                >Quick Message</a
-              >
+              </form>
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Other Ways to Connect Section -->
+    <section class="py-16 lg:py-20 bg-cream-200 border-y border-brown-700/10 relative overflow-hidden">
+      <!-- Decorative Elements -->
+      <div class="deco-circle w-28 h-28 float-animation" style="top: 20%; left: 2%;"></div>
+      <div class="deco-dot float-slow" style="top: 15%; right: 6%;"></div>
+      <div class="deco-ring w-40 h-40 spin-slow" style="bottom: 5%; left: -4%;"></div>
+      <div class="deco-cross pulse-soft" style="bottom: 30%; right: 3%;"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-12">
+          <span class="label-badge text-brown-400 text-xs tracking-widest uppercase mb-3">Alternative Contact</span>
+          <h2 class="font-playfair text-2xl sm:text-3xl font-semibold text-brown-700 mb-4">Other Ways to Connect</h2>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- WhatsApp Card -->
+          <div class="editorial-card card-3d p-8 text-center card-lift">
+            <div class="w-14 h-14 border border-brown-700/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-brown-700" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+            </div>
+            <h4 class="font-medium text-brown-700 mb-2">Quick Chat</h4>
+            <p class="text-brown-400 text-sm mb-6 font-light">Prefer a quick conversation? Let's connect on WhatsApp.</p>
+            <a href="https://wa.me/2347040808085" target="_blank" class="pill-btn btn-3d text-sm">
+              WhatsApp Chat
+            </a>
+          </div>
+
+          <!-- Schedule Meeting Card -->
+          <div class="editorial-card card-3d p-8 text-center card-lift">
+            <div class="w-14 h-14 border border-brown-700/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-brown-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+            </div>
+            <h4 class="font-medium text-brown-700 mb-2">Schedule Meeting</h4>
+            <p class="text-brown-400 text-sm mb-6 font-light">Book a meeting for a detailed discussion about your project.</p>
+            <a href="#" id="scheduleMeeting" class="pill-btn btn-3d text-sm">
+              Schedule Call
+            </a>
+          </div>
+
+          <!-- Quick Response Card -->
+          <div class="editorial-card card-3d p-8 text-center card-lift sm:col-span-2 lg:col-span-1">
+            <div class="w-14 h-14 border border-brown-700/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-brown-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+            </div>
+            <h4 class="font-medium text-brown-700 mb-2">Quick Response</h4>
+            <p class="text-brown-400 text-sm mb-6 font-light">Need an immediate response? Use the contact form above.</p>
+            <a href="#contactForm" class="pill-btn pill-btn-filled btn-3d text-sm">
+              Quick Message
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-cream-50">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="font-playfair text-2xl sm:text-3xl font-semibold text-brown-700 mb-4">Response Time</h2>
+        <p class="text-brown-500 mb-4 font-light">I typically respond to all inquiries within 24 hours.</p>
+        <p class="text-brown-400 text-sm font-light">Currently an Intern at Acentruim AI Company - Frontend Development &amp; Creative Storytelling</p>
       </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-content">
-          <div class="footer-main">
-            <div class="footer-info">
-              <h3>Asonye Mmaokike</h3>
-              <p>Front-End Developer & Creative Storyteller</p>
-              <p>B.Sc. Economics and Statistics Graduate</p>
-            </div>
-            <div class="footer-links">
-              <div class="footer-column">
-                <h4>Navigation</h4>
-                <ul>
-                  <li><a href="index.html">Home</a></li>
-                  <li><a href="about.html">About</a></li>
-                  <li><a href="skills.html">Skills</a></li>
-                  <li><a href="projects.html">Projects</a></li>
-                  <li><a href="stories.html">Stories</a></li>
-                  <li><a href="contact.html">Contact</a></li>
-                </ul>
-              </div>
-              <div class="footer-column">
-                <h4>Connect</h4>
-                <ul>
-                  <li><a href="mailto:mmasonye2001@gmail.com">Email</a></li>
-                  <li><a href="tel:+2347040808085">Phone</a></li>
-                  <li>
-                    <a
-                      href="https://linkedin.com/in/asonye-mmaokike"
-                      target="_blank"
-                      >LinkedIn</a
-                    >
-                  </li>
-                  <li>
-                    <a href="https://github.com/asonye" target="_blank"
-                      >GitHub</a
-                    >
-                  </li>
-                </ul>
-              </div>
-              <div class="footer-column">
-                <h4>Services</h4>
-                <ul>
-                  <li>Frontend Development</li>
-                  <li>Web Design</li>
-                  <li>Creative Storytelling</li>
-                  <li>UI/UX Design</li>
-                </ul>
-              </div>
-            </div>
+    <footer class="bg-brown-700 text-cream-200 pt-16 pb-10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
+          <div class="lg:col-span-2">
+            <a href="index.html" class="font-playfair text-2xl font-semibold text-cream-200 hover:text-cream-100 transition-colors mb-4 inline-block">
+              Asonye<span class="text-cream-400 font-normal">.dev</span>
+            </a>
+            <p class="text-cream-300 mb-2 font-light">Front-End Developer &amp; Creative Storyteller</p>
+            <p class="text-cream-400 text-sm font-light">B.Sc. Economics and Statistics Graduate</p>
           </div>
-          <div class="footer-bottom">
-            <p>&copy; 2025 Asonye Mmaokike. All rights reserved.</p>
-            <p>Designed and developed with ❤️ by Asonye Mmaokike</p>
+          <div>
+            <h4 class="text-sm font-medium mb-4 text-cream-200 tracking-wide uppercase">Navigation</h4>
+            <ul class="space-y-3">
+              <li><a href="index.html" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">Home</a></li>
+              <li><a href="about.html" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">About</a></li>
+              <li><a href="skills.html" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">Skills</a></li>
+              <li><a href="projects.html" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">Projects</a></li>
+              <li><a href="stories.html" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">Stories</a></li>
+              <li><a href="contact.html" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">Contact</a></li>
+            </ul>
           </div>
+          <div>
+            <h4 class="text-sm font-medium mb-4 text-cream-200 tracking-wide uppercase">Connect</h4>
+            <ul class="space-y-3">
+              <li><a href="mailto:mmasonye2001@gmail.com" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">Email</a></li>
+              <li><a href="tel:+2347040808085" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">Phone</a></li>
+              <li><a href="https://linkedin.com/in/asonye-mmaokike" target="_blank" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">LinkedIn</a></li>
+              <li><a href="https://github.com/asonye" target="_blank" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">GitHub</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-brown-600 mt-12 pt-8 text-center">
+          <p class="text-cream-500 text-xs font-light tracking-wide">&copy; 2025 Asonye Mmaokike. All rights reserved.</p>
         </div>
       </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script>
+      const hamburger = document.getElementById('hamburger');
+      const mobileMenu = document.getElementById('mobile-menu');
+      hamburger.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+      const navbar = document.querySelector('nav');
+      let lastScrollY = window.scrollY;
+      let ticking = false;
+
+      function updateNavbar() {
+        const currentScrollY = window.scrollY;
+        if (currentScrollY > lastScrollY && currentScrollY > 80) {
+          navbar.style.transform = 'translateY(-100%)';
+        } else {
+          navbar.style.transform = 'translateY(0)';
+        }
+        lastScrollY = currentScrollY;
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateNavbar);
+          ticking = true;
+        }
+      });
+    </script>
   </body>
 </html>

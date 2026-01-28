@@ -1,219 +1,473 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Web Projects - Asonye Mmaokike</title>
-    <link rel="stylesheet" href="/CSS/style.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              'playfair': ['Playfair Display', 'Georgia', 'serif'],
+              'ibm': ['IBM Plex Sans', 'system-ui', 'sans-serif'],
+            },
+            colors: {
+              cream: {
+                50: '#FDFCFB',
+                100: '#F5F3F0',
+                200: '#E8E4DD',
+                300: '#D4CFC5',
+                400: '#C0B9AD',
+                500: '#A9A295',
+              },
+              brown: {
+                50: '#F5F4F3',
+                100: '#E6E4E2',
+                200: '#CCC8C4',
+                300: '#9E9891',
+                400: '#6B655C',
+                500: '#4A453E',
+                600: '#3D3833',
+                700: '#2B2722',
+                800: '#1F1C18',
+                900: '#141210',
+              },
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      .pill-btn {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 28px;
+        border: 1px solid #2B2722;
+        border-radius: 50px;
+        background: transparent;
+        color: #2B2722;
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-weight: 500;
+        font-size: 0.9rem;
+        letter-spacing: 0.02em;
+        transition: all 0.3s ease;
+      }
+      .pill-btn::before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        background: #2B2722;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+      }
+      .pill-btn:hover {
+        background: #2B2722;
+        color: #E8E4DD;
+      }
+      .pill-btn:hover::before {
+        background: #E8E4DD;
+      }
+      .pill-btn-filled {
+        background: #2B2722;
+        color: #E8E4DD;
+      }
+      .pill-btn-filled::before {
+        background: #E8E4DD;
+      }
+      .pill-btn-filled:hover {
+        background: #4A453E;
+        border-color: #4A453E;
+      }
+      .editorial-card {
+        background: #FDFCFB;
+        border: 1px solid rgba(43, 39, 34, 0.1);
+        border-radius: 4px;
+        transition: all 0.3s ease;
+      }
+      .editorial-card:hover {
+        border-color: rgba(43, 39, 34, 0.25);
+      }
+      .section-divider {
+        width: 60px;
+        height: 1px;
+        background: #2B2722;
+        margin: 0 auto;
+      }
+      @keyframes textReveal {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+      .text-reveal {
+        animation: textReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        opacity: 0;
+      }
+      .delay-1 { animation-delay: 0.1s; }
+      .delay-2 { animation-delay: 0.2s; }
+      .delay-3 { animation-delay: 0.3s; }
+      .delay-4 { animation-delay: 0.4s; }
+      .delay-5 { animation-delay: 0.5s; }
+      .delay-6 { animation-delay: 0.6s; }
+      @keyframes scaleReveal {
+        0% { opacity: 0; transform: scale(0.95); }
+        100% { opacity: 1; transform: scale(1); }
+      }
+      .scale-reveal {
+        animation: scaleReveal 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        opacity: 0;
+      }
+      .card-lift {
+        transition: transform 0.35s ease, border-color 0.35s ease;
+      }
+      .card-lift:hover {
+        transform: translateY(-4px);
+      }
+      .tech-tag {
+        display: inline-block;
+        padding: 4px 12px;
+        border: 1px solid rgba(43, 39, 34, 0.3);
+        border-radius: 50px;
+        font-size: 0.7rem;
+        font-weight: 500;
+        color: #6B655C;
+        letter-spacing: 0.02em;
+        transition: all 0.3s ease;
+      }
+      .tech-tag:hover {
+        border-color: #2B2722;
+        color: #2B2722;
+      }
+      /* Floating Animations */
+      @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
+      @keyframes floatSlow { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-10px) rotate(2deg); } }
+      @keyframes floatReverse { 0%, 100% { transform: translateY(-10px); } 50% { transform: translateY(5px); } }
+      @keyframes pulse-soft { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.1); } }
+      @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+      .float-animation { animation: float 6s ease-in-out infinite; }
+      .float-slow { animation: floatSlow 8s ease-in-out infinite; }
+      .float-reverse { animation: floatReverse 7s ease-in-out infinite; }
+      .pulse-soft { animation: pulse-soft 4s ease-in-out infinite; }
+      .spin-slow { animation: spin-slow 30s linear infinite; }
+      .deco-circle { position: absolute; border-radius: 50%; border: 1px solid rgba(43, 39, 34, 0.15); }
+      .deco-dot { position: absolute; width: 6px; height: 6px; background: rgba(43, 39, 34, 0.3); border-radius: 50%; }
+      .deco-ring { position: absolute; border-radius: 50%; border: 1px dashed rgba(43, 39, 34, 0.2); }
+      .deco-cross { position: absolute; width: 12px; height: 12px; }
+      .deco-cross::before, .deco-cross::after { content: ''; position: absolute; background: rgba(43, 39, 34, 0.2); }
+      .deco-cross::before { width: 12px; height: 1px; top: 50%; left: 0; transform: translateY(-50%); }
+      .deco-cross::after { width: 1px; height: 12px; left: 50%; top: 0; transform: translateX(-50%); }
+      /* Nav link with white background */
+      .nav-link-pill {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 8px 16px;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(43, 39, 34, 0.08);
+        transition: all 0.3s ease;
+        transform-style: preserve-3d;
+      }
+      .nav-link-pill:hover {
+        background: #FFFFFF;
+        box-shadow: 0 4px 15px rgba(43, 39, 34, 0.12);
+        transform: translateY(-2px) translateZ(5px);
+      }
+      /* Label badge with white background */
+      .label-badge {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 10px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(43, 39, 34, 0.08), 0 1px 3px rgba(43, 39, 34, 0.1);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      /* 3D Card effect */
+      .card-3d {
+        transform-style: preserve-3d;
+        transition: transform 0.5s ease, box-shadow 0.5s ease;
+      }
+      .card-3d:hover {
+        transform: rotateX(5deg) rotateY(-5deg) translateZ(10px);
+        box-shadow: 10px 10px 30px rgba(43, 39, 34, 0.15);
+      }
+      .btn-3d {
+        transform-style: preserve-3d;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(43, 39, 34, 0.15);
+      }
+      .btn-3d:hover {
+        transform: translateY(-3px) translateZ(10px);
+        box-shadow: 0 8px 25px rgba(43, 39, 34, 0.2);
+      }
+      .section-title-3d {
+        transform-style: preserve-3d;
+        transition: transform 0.5s ease;
+      }
+      .section-title-3d:hover {
+        transform: translateZ(20px) rotateX(-5deg);
+      }
+    </style>
   </head>
-  <body>
+  <body class="font-ibm text-brown-700 bg-cream-200 antialiased">
     <!-- Navigation -->
-    <nav class="navbar">
-      <div class="container nav-container">
-        <a href="index.html" class="logo">🌟 Asonye Mmaokike</a>
-        <ul class="nav-menu">
-          <li><a href="index.html" class="nav-link">Home</a></li>
-          <li><a href="about.html" class="nav-link">About</a></li>
-          <li><a href="skills.html" class="nav-link">Skills</a></li>
-          <li><a href="projects.html" class="nav-link active">Projects</a></li>
-          <li><a href="stories.html" class="nav-link">Stories</a></li>
-          <li><a href="contact.html" class="nav-link">Contact</a></li>
-        </ul>
-        <div class="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
+    <nav class="fixed top-0 left-0 w-full bg-cream-200/95 backdrop-blur-sm z-50 border-b border-brown-700/10 transition-transform duration-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16 lg:h-20">
+          <a href="index.html" class="font-playfair text-xl lg:text-2xl font-semibold text-brown-700 hover:text-brown-500 transition-colors">
+            Asonye<span class="text-brown-400 font-normal">.dev</span>
+          </a>
+          <ul class="hidden md:flex items-center space-x-6">
+            <li><a href="index.html" class="nav-link-pill text-brown-600 hover:text-brown-700 font-medium text-sm tracking-wide transition-all">Home</a></li>
+            <li><a href="about.html" class="nav-link-pill text-brown-600 hover:text-brown-700 font-medium text-sm tracking-wide transition-all">About</a></li>
+            <li><a href="skills.html" class="nav-link-pill text-brown-600 hover:text-brown-700 font-medium text-sm tracking-wide transition-all">Skills</a></li>
+            <li><a href="projects.html" class="nav-link-pill text-brown-700 font-medium text-sm tracking-wide border-b border-brown-700">Projects</a></li>
+            <li><a href="stories.html" class="nav-link-pill text-brown-600 hover:text-brown-700 font-medium text-sm tracking-wide transition-all">Stories</a></li>
+            <li><a href="contact.html" class="ml-4 pill-btn pill-btn-filled btn-3d text-sm">Contact</a></li>
+          </ul>
+          <button id="hamburger" class="md:hidden flex flex-col justify-center items-center w-10 h-10">
+            <span class="w-5 h-0.5 bg-brown-700 rounded-full transition-all"></span>
+            <span class="w-5 h-0.5 bg-brown-700 rounded-full mt-1.5 transition-all"></span>
+            <span class="w-5 h-0.5 bg-brown-700 rounded-full mt-1.5 transition-all"></span>
+          </button>
+        </div>
+      </div>
+      <div id="mobile-menu" class="md:hidden hidden bg-cream-50 border-t border-brown-700/10">
+        <div class="px-4 py-3 space-y-1">
+          <a href="index.html" class="block py-3 px-4 text-brown-700 hover:bg-cream-200 font-medium">Home</a>
+          <a href="about.html" class="block py-3 px-4 text-brown-700 hover:bg-cream-200 font-medium">About</a>
+          <a href="skills.html" class="block py-3 px-4 text-brown-700 hover:bg-cream-200 font-medium">Skills</a>
+          <a href="projects.html" class="block py-3 px-4 text-brown-700 bg-cream-200 font-medium">Projects</a>
+          <a href="stories.html" class="block py-3 px-4 text-brown-700 hover:bg-cream-200 font-medium">Stories</a>
+          <a href="contact.html" class="block py-3 px-4 mt-2 bg-brown-700 text-cream-200 text-center font-medium">Contact</a>
         </div>
       </div>
     </nav>
 
     <!-- Page Header -->
-    <section class="page-header">
-      <div class="container">
-        <h1>Web Projects</h1>
-        <p>Front-end development projects and creative web solutions</p>
+    <section class="pt-32 pb-16 bg-cream-200 relative overflow-hidden">
+      <!-- Decorative Animated Elements -->
+      <div class="deco-circle float-animation w-16 h-16 top-24 left-[10%] hidden lg:block" style="animation-delay: 0s;"></div>
+      <div class="deco-dot float-reverse top-40 left-[15%] hidden lg:block" style="animation-delay: 0.5s;"></div>
+      <div class="deco-ring spin-slow w-24 h-24 top-28 right-[8%] hidden lg:block"></div>
+      <div class="deco-cross float-slow top-36 right-[15%] hidden lg:block" style="animation-delay: 0.2s;"></div>
+      <div class="deco-dot pulse-soft top-48 right-[12%] hidden lg:block" style="animation-delay: 1s;"></div>
+      <div class="deco-circle float-slow w-10 h-10 bottom-8 left-[20%] hidden lg:block" style="animation-delay: 0.7s;"></div>
+      <div class="deco-ring float-reverse w-14 h-14 bottom-12 right-[18%] hidden lg:block" style="animation-delay: 0.3s;"></div>
+      <div class="deco-dot float-animation bottom-16 left-[8%] hidden lg:block" style="animation-delay: 1.2s;"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <div class="text-reveal delay-1 mb-4">
+          <span class="label-badge text-brown-500 text-xs font-medium tracking-widest uppercase">
+            <span class="w-2 h-2 bg-brown-500 rounded-full"></span>
+            Portfolio
+          </span>
+        </div>
+        <h1 class="text-reveal delay-2 font-playfair text-4xl sm:text-5xl lg:text-6xl font-semibold text-brown-700 mb-4 section-title-3d">
+          <span class="inline-block bg-white/80 px-4 py-2 rounded-xl shadow-sm">Web</span> <span class="italic text-brown-500 inline-block bg-white/80 px-4 py-2 rounded-xl shadow-sm">Projects</span>
+        </h1>
+        <p class="text-reveal delay-3 text-brown-500 text-base sm:text-lg max-w-2xl mx-auto font-light">
+          Front-end development projects and creative web solutions
+        </p>
+        <div class="text-reveal delay-4 mt-6">
+          <div class="section-divider"></div>
+        </div>
       </div>
     </section>
 
-    <!-- Projects Content -->
-    <section class="projects-content">
-      <div class="container">
-        <div class="projects-grid">
-          <div class="project-card">
-            <div class="project-image">🍰</div>
-            <div class="project-info">
-              <h3 class="project-title">Oma Bakery Website</h3>
-              <p class="project-description">
-                A responsive bakery website highlighting products, categories,
-                and customer engagement features. Includes product gallery,
-                ordering system, and contact information.
-              </p>
-              <div class="tech-stack">
+    <!-- Featured Projects Section -->
+    <section class="py-16 lg:py-20 bg-cream-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <span class="label-badge text-xs text-brown-400 tracking-widest uppercase mb-3">Featured Work</span>
+          <h2 class="font-playfair text-2xl sm:text-3xl font-semibold text-brown-700 mb-4 mt-4 section-title-3d">Selected Projects</h2>
+          <div class="section-divider"></div>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          <!-- Project Card 1 - Oma Bakery -->
+          <div class="editorial-card card-lift card-3d overflow-hidden scale-reveal delay-1">
+            <div class="relative h-48 bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center overflow-hidden border-b border-brown-700/10">
+              <span class="text-6xl">🍰</span>
+            </div>
+            <div class="p-6">
+              <span class="text-xs text-brown-400 tracking-widest uppercase">Web Design</span>
+              <h3 class="font-playfair text-xl font-semibold text-brown-700 mt-2 mb-3">Oma Bakery Website</h3>
+              <p class="text-brown-500 text-sm mb-4 font-light leading-relaxed">A responsive bakery website highlighting products, categories, and customer engagement features. Includes product gallery, ordering system, and contact information.</p>
+              <div class="flex flex-wrap gap-2 mb-5">
                 <span class="tech-tag">HTML5</span>
                 <span class="tech-tag">CSS3</span>
                 <span class="tech-tag">JavaScript</span>
                 <span class="tech-tag">Mobile-First</span>
               </div>
-              <div class="project-links">
-                <a
-                  href="https://oma-bakery-2-9pes.vercel.app/"
-                  target="_blank"
-                  class="live-demo"
-                  >Live Demo</a
-                >
-                
-              </div>
+              <a href="https://oma-bakery-2-9pes.vercel.app/" target="_blank" class="pill-btn btn-3d text-sm w-full justify-center">
+                View Project
+              </a>
             </div>
           </div>
 
-          <div class="project-card">
-            <div class="project-image">🎓</div>
-            <div class="project-info">
-              <h3 class="project-title">Online Tuition Courses Website</h3>
-              <p class="project-description">
-                An educational platform showcasing available courses with a
-                structured layout and user-friendly navigation. Features course
-                listings, categories, and enrollment functionality.
-              </p>
-              <div class="tech-stack">
+          <!-- Project Card 2 - Online Tuition -->
+          <div class="editorial-card card-lift card-3d overflow-hidden scale-reveal delay-2">
+            <div class="relative h-48 bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center overflow-hidden border-b border-brown-700/10">
+              <span class="text-6xl">🎓</span>
+            </div>
+            <div class="p-6">
+              <span class="text-xs text-brown-400 tracking-widest uppercase">Educational Platform</span>
+              <h3 class="font-playfair text-xl font-semibold text-brown-700 mt-2 mb-3">Online Tuition Courses</h3>
+              <p class="text-brown-500 text-sm mb-4 font-light leading-relaxed">An educational platform showcasing available courses with a structured layout and user-friendly navigation. Features course listings, categories, and enrollment functionality.</p>
+              <div class="flex flex-wrap gap-2 mb-5">
                 <span class="tech-tag">HTML5</span>
                 <span class="tech-tag">CSS3</span>
                 <span class="tech-tag">JavaScript</span>
                 <span class="tech-tag">Responsive</span>
               </div>
-              <div class="project-links">
-                <a
-                  href="https://www.onlinetuitionltd.com/courses"
-                  target="_blank"
-                  class="live-demo"
-                  >Live Demo</a
-                >
-                
-              </div>
+              <a href="https://www.onlinetuitionltd.com/courses" target="_blank" class="pill-btn btn-3d text-sm w-full justify-center">
+                View Project
+              </a>
             </div>
           </div>
 
-          <div class="project-card">
-            <div class="project-image">🛋️</div>
-            <div class="project-info">
-              <h3 class="project-title">Modern Furniture Store</h3>
-              <p class="project-description">
-                A responsive furniture e-commerce website featuring product
-                categories, shopping cart functionality, and modern UI design.
-                Built with pure HTML, CSS, and JavaScript.
-              </p>
-              <div class="tech-stack">
+          <!-- Project Card 3 - Furniture Store -->
+          <div class="editorial-card card-lift card-3d overflow-hidden scale-reveal delay-3">
+            <div class="relative h-48 bg-gradient-to-br from-emerald-100 to-teal-100 flex items-center justify-center overflow-hidden border-b border-brown-700/10">
+              <span class="text-6xl">🛋️</span>
+            </div>
+            <div class="p-6">
+              <span class="text-xs text-brown-400 tracking-widest uppercase">E-commerce</span>
+              <h3 class="font-playfair text-xl font-semibold text-brown-700 mt-2 mb-3">Modern Furniture Store</h3>
+              <p class="text-brown-500 text-sm mb-4 font-light leading-relaxed">A responsive furniture e-commerce website featuring product categories, shopping cart functionality, and modern UI design. Built with pure HTML, CSS, and JavaScript.</p>
+              <div class="flex flex-wrap gap-2 mb-5">
                 <span class="tech-tag">HTML5</span>
                 <span class="tech-tag">CSS3</span>
                 <span class="tech-tag">JavaScript</span>
-                <span class="tech-tag">Responsive</span>
                 <span class="tech-tag">E-commerce</span>
               </div>
-              <div class="project-links">
-                <a
-                  href="https://furniture-x-nuk7.vercel.app/categories.html"
-                  target="_blank"
-                  class="live-demo"
-                  >Live Demo</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="additional-projects">
-          <h2>🛠️ Additional Projects</h2>
-          <div class="project-list">
-            <div class="project-item">
-              <h3>Personal Portfolio Website</h3>
-              <p>Responsive portfolio showcasing skills and projects</p>
-            </div>
-            <div class="project-item">
-              <h3>Landing Page Designs</h3>
-              <p>Various landing page templates and designs</p>
-            </div>
-            <div class="project-item">
-              <h3>CSS Animation Experiments</h3>
-              <p>Creative animations and interactive elements</p>
-            </div>
-            <div class="project-item">
-              <h3>JavaScript Interactive Components</h3>
-              <p>Dynamic web components and functionality</p>
-            </div>
-            <div class="project-item">
-              <h3>Responsive Layout Templates</h3>
-              <p>Mobile-first responsive design templates</p>
+              <a href="https://furniture-x-nuk7.vercel.app/categories.html" target="_blank" class="pill-btn btn-3d text-sm w-full justify-center">
+                View Project
+              </a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- Additional Projects Section -->
+    <section class="py-16 lg:py-20 bg-cream-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <span class="text-xs text-brown-400 tracking-widest uppercase mb-3 block">More Work</span>
+          <h2 class="font-playfair text-2xl sm:text-3xl font-semibold text-brown-700 mb-4">Additional Projects</h2>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+          <div class="editorial-card p-6 card-lift card-3d">
+            <h3 class="font-playfair text-lg font-semibold text-brown-700 mb-2">Personal Portfolio Website</h3>
+            <p class="text-brown-400 text-sm font-light">Responsive portfolio showcasing skills and projects</p>
+          </div>
+          <div class="editorial-card p-6 card-lift card-3d">
+            <h3 class="font-playfair text-lg font-semibold text-brown-700 mb-2">Landing Page Designs</h3>
+            <p class="text-brown-400 text-sm font-light">Various landing page templates and designs</p>
+          </div>
+          <div class="editorial-card p-6 card-lift card-3d">
+            <h3 class="font-playfair text-lg font-semibold text-brown-700 mb-2">CSS Animation Experiments</h3>
+            <p class="text-brown-400 text-sm font-light">Creative animations and interactive elements</p>
+          </div>
+          <div class="editorial-card p-6 card-lift card-3d">
+            <h3 class="font-playfair text-lg font-semibold text-brown-700 mb-2">JavaScript Interactive Components</h3>
+            <p class="text-brown-400 text-sm font-light">Dynamic web components and functionality</p>
+          </div>
+          <div class="editorial-card p-6 card-lift card-3d">
+            <h3 class="font-playfair text-lg font-semibold text-brown-700 mb-2">Responsive Layout Templates</h3>
+            <p class="text-brown-400 text-sm font-light">Mobile-first responsive design templates</p>
+          </div>
+          <div class="editorial-card p-6 card-lift card-3d">
+            <h3 class="font-playfair text-lg font-semibold text-brown-700 mb-2">UI Component Library</h3>
+            <p class="text-brown-400 text-sm font-light">Reusable UI components collection</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-cream-50 border-y border-brown-700/10">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="font-playfair text-2xl sm:text-3xl font-semibold text-brown-700 mb-4">Interested in Working Together?</h2>
+        <p class="text-brown-500 mb-8 font-light">Have a project in mind? Let's discuss how I can help bring your ideas to life.</p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="contact.html" class="pill-btn pill-btn-filled btn-3d">Start a Project</a>
+          <a href="about.html" class="pill-btn btn-3d">Learn About Me</a>
+        </div>
+      </div>
+    </section>
+
     <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-content">
-          <div class="footer-main">
-            <div class="footer-info">
-              <h3>Asonye Mmaokike</h3>
-              <p>Front-End Developer & Creative Storyteller</p>
-              <p>B.Sc. Economics and Statistics Graduate</p>
-            </div>
-            <div class="footer-links">
-              <div class="footer-column">
-                <h4>Navigation</h4>
-                <ul>
-                  <li><a href="index.html">Home</a></li>
-                  <li><a href="about.html">About</a></li>
-                  <li><a href="skills.html">Skills</a></li>
-                  <li><a href="projects.html">Projects</a></li>
-                  <li><a href="stories.html">Stories</a></li>
-                  <li><a href="contact.html">Contact</a></li>
-                </ul>
-              </div>
-              <div class="footer-column">
-                <h4>Connect</h4>
-                <ul>
-                  <li><a href="mailto:mmasonye2001@gmail.com">Email</a></li>
-                  <li><a href="tel:+2347040808085">Phone</a></li>
-                  <li>
-                    <a
-                      href="https://linkedin.com/in/asonye-mmaokike"
-                      target="_blank"
-                      >LinkedIn</a
-                    >
-                  </li>
-                  <li>
-                    <a href="https://github.com/asonye" target="_blank"
-                      >GitHub</a
-                    >
-                  </li>
-                </ul>
-              </div>
-              <div class="footer-column">
-                <h4>Services</h4>
-                <ul>
-                  <li>Frontend Development</li>
-                  <li>Web Design</li>
-                  <li>Creative Storytelling</li>
-                  <li>UI/UX Design</li>
-                </ul>
-              </div>
-            </div>
+    <footer class="bg-brown-700 text-cream-200 pt-16 pb-10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
+          <div class="lg:col-span-2">
+            <a href="index.html" class="font-playfair text-2xl font-semibold text-cream-200 hover:text-cream-100 transition-colors mb-4 inline-block">
+              Asonye<span class="text-cream-400 font-normal">.dev</span>
+            </a>
+            <p class="text-cream-300 mb-2 font-light">Front-End Developer &amp; Creative Storyteller</p>
+            <p class="text-cream-400 text-sm font-light">B.Sc. Economics and Statistics Graduate</p>
           </div>
-          <div class="footer-bottom">
-            <p>&copy; 2025 fAsonye Mmaokike. All rights reserved.</p>
-            <p>Designed and developed with ❤️ by Asonye Mmaokike</p>
+          <div>
+            <h4 class="text-sm font-medium mb-4 text-cream-200 tracking-wide uppercase">Navigation</h4>
+            <ul class="space-y-3">
+              <li><a href="index.html" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">Home</a></li>
+              <li><a href="about.html" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">About</a></li>
+              <li><a href="skills.html" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">Skills</a></li>
+              <li><a href="projects.html" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">Projects</a></li>
+              <li><a href="stories.html" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">Stories</a></li>
+              <li><a href="contact.html" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">Contact</a></li>
+            </ul>
           </div>
+          <div>
+            <h4 class="text-sm font-medium mb-4 text-cream-200 tracking-wide uppercase">Connect</h4>
+            <ul class="space-y-3">
+              <li><a href="mailto:mmasonye2001@gmail.com" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">Email</a></li>
+              <li><a href="tel:+2347040808085" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">Phone</a></li>
+              <li><a href="https://linkedin.com/in/asonye-mmaokike" target="_blank" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">LinkedIn</a></li>
+              <li><a href="https://github.com/asonye" target="_blank" class="text-cream-400 hover:text-cream-200 transition-colors text-sm font-light">GitHub</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-brown-600 mt-12 pt-8 text-center">
+          <p class="text-cream-500 text-xs font-light tracking-wide">&copy; 2025 Asonye Mmaokike. All rights reserved.</p>
         </div>
       </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script>
+      const hamburger = document.getElementById('hamburger');
+      const mobileMenu = document.getElementById('mobile-menu');
+      hamburger.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+      const navbar = document.querySelector('nav');
+      let lastScrollY = window.scrollY;
+      let ticking = false;
+
+      function updateNavbar() {
+        const currentScrollY = window.scrollY;
+        if (currentScrollY > lastScrollY && currentScrollY > 80) {
+          navbar.style.transform = 'translateY(-100%)';
+        } else {
+          navbar.style.transform = 'translateY(0)';
+        }
+        lastScrollY = currentScrollY;
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateNavbar);
+          ticking = true;
+        }
+      });
+    </script>
   </body>
 </html>
